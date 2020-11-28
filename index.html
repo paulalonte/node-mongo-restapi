@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Node Mongo Rest API</title>
+</head>
+<body>
+    <h1>Node Express Mongo Rest API</h1>
+
+    <button type="button" onclick="addTodoItem()">Add todo list</button>
+    <button type="button" onclick="getTodolist()">Get todo list</button>
+    <button type="button" onclick="getTodolistItem()">Get todo item</button>
+    <button type="button" onclick="updateItem()">Update item</button>
+    <button type="button" onclick="deleteItem()">Delete todo item</button>
+    <button type="button" onclick="deleteAll()">Delete all</button>
+
+    <script>
+
+        function getTodolist() {
+            fetch('http://localhost:3000/todolist', { method: 'GET'})
+            .then(res => res.json())
+            .then(data => console.log(data));
+        }
+
+        function getTodolistItem() {
+            const getSpecificItemId = "5fc2808c33cf354bddbbeb35";
+            fetch('http://localhost:3000/todolist/' + getSpecificItemId, { method: 'GET'})
+            .then(res => res.json())
+            .then(data => console.log(data));
+        }
+
+        function addTodoItem() {
+            fetch('http://localhost:3000/addTodo/', { 
+                method: 'POST',
+                body: JSON.stringify({
+                    name: "Go to the Mall",
+                    isCompleted: true
+                } ),
+                headers: { 'Content-type' : 'application/json; charset=utf-8'}
+            })
+                .then(res => res.json())
+                .then(data => console.log(data));
+        }
+
+        function updateItem() {
+            const updateId = "5fc2808c33cf354bddbbeb35";
+            fetch('http://localhost:3000/todo/' + updateId, { 
+                method: 'PUT',
+                body: JSON.stringify({
+                    name: "Play Basketball and Eat Donut",
+                    isCompleted: true
+                } ),
+                headers: { 'Content-type' : 'application/json; charset=utf-8'}
+            })
+                .then(res => res.json())
+                .then(data => console.log(data));
+        }
+
+        function deleteItem() {
+            const deleteId = "5fc2807133cf354bddbbeb33";
+
+            console.log('delete item');
+
+            fetch('http://localhost:3000/deleteTodo/' + deleteId, { method: 'DELETE' })
+                .then(res => res.json())
+                .then(data => console.log(data));
+        }
+
+        function deleteAll() {        
+            fetch('http://localhost:3000/deleteAll/', { method: 'DELETE' })
+                .then(res => res.json())
+                .then(data => console.log(data));
+        }
+        
+
+        
+    </script>
+</body>
+</html>
