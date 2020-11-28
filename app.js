@@ -88,15 +88,6 @@ app.get('/', function(req, res) {
     res.sendFile(__dirname + "/index.html");
 })
 
-// TodoModel.deleteMany({}, (err) => {
-//     if(err) {
-//         console.log(err);
-//     }else {
-//         console.log('deleted all');
-//     }
-// })
-
-
 app.listen(3000, () => {
     console.log('port listening to 3000...');
 });
